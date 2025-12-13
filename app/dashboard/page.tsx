@@ -1,7 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { ArrowLeft } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { storage } from "@/lib/storage"
 import { CourierState, Priority } from "@/lib/types"
 import {
@@ -19,6 +22,7 @@ import {
 } from "recharts"
 
 export default function DashboardPage() {
+  const router = useRouter()
   const [stats, setStats] = useState({
     totalCourriers: 0,
     byState: {} as Record<string, number>,
@@ -81,6 +85,13 @@ export default function DashboardPage() {
     "hsl(var(--chart-3))",
     "hsl(var(--chart-4))",
     "hsl(var(--chart-5))",
+    "#8B5CF6", // purple
+    "#10B981", // green
+    "#F59E0B", // amber
+    "#EF4444", // red
+    "#3B82F6", // blue
+    "#EC4899", // pink
+    "#14B8A6", // teal
   ]
 
   const StatCard = ({
@@ -108,6 +119,10 @@ export default function DashboardPage() {
   return (
     <div className="flex-1 space-y-8 p-6">
       <div>
+        <Button variant="outline" onClick={() => router.back()} className="gap-2 bg-transparent w-fit mb-4">
+          <ArrowLeft className="w-4 h-4" />
+          Retour
+        </Button>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground mt-2">Bienvenue dans le système de gestion du courrier</p>
       </div>
@@ -163,7 +178,11 @@ export default function DashboardPage() {
                 <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value" fill="hsl(var(--chart-1))" />
+                <Bar dataKey="value">
+                  {categoryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -183,7 +202,11 @@ export default function DashboardPage() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="hsl(var(--chart-2))" />
+              <Bar dataKey="value">
+                {typeData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

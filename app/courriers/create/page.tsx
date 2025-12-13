@@ -12,7 +12,7 @@ import { storage } from "@/lib/storage"
 import { useAuth } from "@/lib/auth-context"
 import type { Courrier, Attachment } from "@/lib/types"
 import { CourierState, Priority } from "@/lib/types"
-import { Upload, X } from "lucide-react"
+import { Upload, X, ArrowLeft } from "lucide-react"
 
 export default function CreateCourrierPage() {
   const router = useRouter()
@@ -123,6 +123,11 @@ export default function CreateCourrierPage() {
 
   return (
     <div className="space-y-6 p-6">
+      <Button variant="outline" onClick={() => router.back()} className="gap-2 bg-transparent w-fit mb-4">
+        <ArrowLeft className="w-4 h-4" />
+        Retour
+      </Button>
+
       <div>
         <h1 className="text-3xl font-bold">Créer un Courrier</h1>
         <p className="text-muted-foreground">Ajoutez un nouveau courrier au système</p>
