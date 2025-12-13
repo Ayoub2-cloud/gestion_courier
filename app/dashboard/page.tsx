@@ -21,6 +21,21 @@ import {
   ResponsiveContainer,
 } from "recharts"
 
+const CHART_COLORS = [
+  "#3B82F6", // blue
+  "#10B981", // green
+  "#F59E0B", // amber
+  "#EF4444", // red
+  "#8B5CF6", // purple
+  "#EC4899", // pink
+  "#14B8A6", // teal
+  "#F97316", // orange
+  "#06B6D4", // cyan
+  "#84CC16", // lime
+  "#A855F7", // violet
+  "#6366F1", // indigo
+]
+
 export default function DashboardPage() {
   const router = useRouter()
   const [stats, setStats] = useState({
@@ -78,21 +93,6 @@ export default function DashboardPage() {
     name: type,
     value: count,
   }))
-
-  const COLORS = [
-    "hsl(var(--chart-1))",
-    "hsl(var(--chart-2))",
-    "hsl(var(--chart-3))",
-    "hsl(var(--chart-4))",
-    "hsl(var(--chart-5))",
-    "#8B5CF6", // purple
-    "#10B981", // green
-    "#F59E0B", // amber
-    "#EF4444", // red
-    "#3B82F6", // blue
-    "#EC4899", // pink
-    "#14B8A6", // teal
-  ]
 
   const StatCard = ({
     title,
@@ -157,10 +157,11 @@ export default function DashboardPage() {
                   dataKey="value"
                 >
                   {stateData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip />
+                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -178,9 +179,10 @@ export default function DashboardPage() {
                 <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value">
+                <Legend />
+                <Bar dataKey="value" name="Nombre">
                   {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                   ))}
                 </Bar>
               </BarChart>
@@ -202,9 +204,9 @@ export default function DashboardPage() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value">
+              <Bar dataKey="value" name="Nombre">
                 {typeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                 ))}
               </Bar>
             </BarChart>
