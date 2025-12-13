@@ -13,8 +13,12 @@ export const metadata: Metadata = {
   description: "Système de gestion du courrier interne - École Supérieure de Technologie Sidi Bennour",
   generator: "v0.app",
   icons: {
-    icon: "/estsb-logo.png",
-    apple: "/estsb-logo.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/logo.png", sizes: "any", type: "image/png" },
+    ],
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.png",
   },
 }
 
@@ -26,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        <link rel="icon" href="/estsb-logo.png" type="image/png" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
       <body className={`font-sans antialiased`}>
         <AuthProvider>{children}</AuthProvider>
